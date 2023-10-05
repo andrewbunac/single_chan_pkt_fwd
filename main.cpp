@@ -48,6 +48,9 @@ struct sockaddr_in si_other;
 int s, slen=sizeof(si_other);
 struct ifreq ifr;
 
+char gatewayId[] = {0xAD, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0xEE, 0x33, 0xF};
+    
+
 uint32_t cp_nb_rx_rcv;
 uint32_t cp_nb_rx_ok;
 uint32_t cp_nb_rx_bad;
@@ -345,14 +348,23 @@ void sendstat() {
     status_report[0] = PROTOCOL_VERSION;
     status_report[3] = PKT_PUSH_DATA;
 
-    status_report[4] = (unsigned char)ifr.ifr_hwaddr.sa_data[0];
-    status_report[5] = (unsigned char)ifr.ifr_hwaddr.sa_data[1];
-    status_report[6] = (unsigned char)ifr.ifr_hwaddr.sa_data[2];
-    status_report[7] = 0xFF;
-    status_report[8] = 0xFF;
-    status_report[9] = (unsigned char)ifr.ifr_hwaddr.sa_data[3];
-    status_report[10] = (unsigned char)ifr.ifr_hwaddr.sa_data[4];
-    status_report[11] = (unsigned char)ifr.ifr_hwaddr.sa_data[5];
+    // status_report[4] = (unsigned char)ifr.ifr_hwaddr.sa_data[0];
+    // status_report[5] = (unsigned char)ifr.ifr_hwaddr.sa_data[1];
+    // status_report[6] = (unsigned char)ifr.ifr_hwaddr.sa_data[2];
+    // status_report[7] = 0xFF;
+    // status_report[8] = 0xFF;
+    // status_report[9] = (unsigned char)ifr.ifr_hwaddr.sa_data[3];
+    // status_report[10] = (unsigned char)ifr.ifr_hwaddr.sa_data[4];
+    // status_report[11] = (unsigned char)ifr.ifr_hwaddr.sa_data[5];
+
+    status_report[4] = gatewayId[0];
+    status_report[5] = gatewayId[1];
+    status_report[6] = gatewayId[2];
+    status_report[7] = gatewayId[3];
+    status_report[8] = gatewayId[4];
+    status_report[9] = gatewayId[5];
+    status_report[10] = gatewayId[6];
+    status_report[11] = gatewayId[7];
 
     /* start composing datagram with the header */
     uint8_t token_h = (uint8_t)rand(); /* random token */
@@ -430,14 +442,22 @@ void receivepacket() {
             //*(uint32_t *)(buff_up + 4) = net_mac_h;
             //*(uint32_t *)(buff_up + 8) = net_mac_l;
 
-            buff_up[4] = (unsigned char)ifr.ifr_hwaddr.sa_data[0];
-            buff_up[5] = (unsigned char)ifr.ifr_hwaddr.sa_data[1];
-            buff_up[6] = (unsigned char)ifr.ifr_hwaddr.sa_data[2];
-            buff_up[7] = 0xFF;
-            buff_up[8] = 0xFF;
-            buff_up[9] = (unsigned char)ifr.ifr_hwaddr.sa_data[3];
-            buff_up[10] = (unsigned char)ifr.ifr_hwaddr.sa_data[4];
-            buff_up[11] = (unsigned char)ifr.ifr_hwaddr.sa_data[5];
+            // buff_up[4] = (unsigned char)ifr.ifr_hwaddr.sa_data[0];
+            // buff_up[5] = (unsigned char)ifr.ifr_hwaddr.sa_data[1];
+            // buff_up[6] = (unsigned char)ifr.ifr_hwaddr.sa_data[2];
+            // buff_up[7] = 0xFF;
+            // buff_up[8] = 0xFF;
+            // buff_up[9] = (unsigned char)ifr.ifr_hwaddr.sa_data[3];
+            // buff_up[10] = (unsigned char)ifr.ifr_hwaddr.sa_data[4];
+            // buff_up[11] = (unsigned char)ifr.ifr_hwaddr.sa_data[5];
+            status_report[4] = gatewayId[0];
+            status_report[5] = gatewayId[1];
+            status_report[6] = gatewayId[2];
+            status_report[7] = gatewayId[3];
+            status_report[8] = gatewayId[4];
+            status_report[9] = gatewayId[5];
+            status_report[10] = gatewayId[6];
+            status_report[11] = gatewayId[7];
 
             /* start composing datagram with the header */
             uint8_t token_h = (uint8_t)rand(); /* random token */
@@ -560,13 +580,23 @@ int main () {
     ioctl(s, SIOCGIFHWADDR, &ifr);
 
     /* display result */
-    printf("Gateway ID: %.2x:%.2x:%.2x:ff:ff:%.2x:%.2x:%.2x\n",
-           (unsigned char)ifr.ifr_hwaddr.sa_data[0],
-           (unsigned char)ifr.ifr_hwaddr.sa_data[1],
-           (unsigned char)ifr.ifr_hwaddr.sa_data[2],
-           (unsigned char)ifr.ifr_hwaddr.sa_data[3],
-           (unsigned char)ifr.ifr_hwaddr.sa_data[4],
-           (unsigned char)ifr.ifr_hwaddr.sa_data[5]);
+    // printf("Gateway ID: %.2x:%.2x:%.2x:ff:ff:%.2x:%.2x:%.2x\n",
+    //        (unsigned char)ifr.ifr_hwaddr.sa_data[0],
+    //        (unsigned char)ifr.ifr_hwaddr.sa_data[1],
+    //        (unsigned char)ifr.ifr_hwaddr.sa_data[2],
+    //        (unsigned char)ifr.ifr_hwaddr.sa_data[3],
+    //        (unsigned char)ifr.ifr_hwaddr.sa_data[4],
+    //        (unsigned char)ifr.ifr_hwaddr.sa_data[5]);
+
+    printf("Gateway ID: %.2x:%.2x:%.2x:%.2x:%.2x:%.2x:%.2x:%.2x\n",
+           (unsigned char)gatewayId[0],
+           (unsigned char)gatewayId[1],
+           (unsigned char)gatewayId[2],
+           (unsigned char)gatewayId[3],
+           (unsigned char)gatewayId[4],
+           (unsigned char)gatewayId[5],
+           (unsigned char)gatewayId[6],
+           (unsigned char)gatewayId[7],);
 
     printf("Listening at SF%i on %.6lf Mhz.\n", sf,(double)freq/1000000);
     printf("------------------\n");
