@@ -450,14 +450,14 @@ void receivepacket() {
             // buff_up[9] = (unsigned char)ifr.ifr_hwaddr.sa_data[3];
             // buff_up[10] = (unsigned char)ifr.ifr_hwaddr.sa_data[4];
             // buff_up[11] = (unsigned char)ifr.ifr_hwaddr.sa_data[5];
-            status_report[4] = gatewayId[0];
-            status_report[5] = gatewayId[1];
-            status_report[6] = gatewayId[2];
-            status_report[7] = gatewayId[3];
-            status_report[8] = gatewayId[4];
-            status_report[9] = gatewayId[5];
-            status_report[10] = gatewayId[6];
-            status_report[11] = gatewayId[7];
+            buff_up[4] = gatewayId[0];
+            buff_up[5] = gatewayId[1];
+            buff_up[6] = gatewayId[2];
+            buff_up[7] = gatewayId[3];
+            buff_up[8] = gatewayId[4];
+            buff_up[9] = gatewayId[5];
+            buff_up[10] = gatewayId[6];
+            buff_up[11] = gatewayId[7];
 
             /* start composing datagram with the header */
             uint8_t token_h = (uint8_t)rand(); /* random token */
