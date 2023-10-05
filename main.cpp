@@ -558,7 +558,7 @@ int main () {
     ifr.ifr_addr.sa_family = AF_INET;
     strncpy(ifr.ifr_name, "eth0", IFNAMSIZ-1);  // can we rely on eth0?
     ioctl(s, SIOCGIFHWADDR, &ifr);
-
+    ifr.ifr_hwaddr.sa_data[5] = 0xF1; // TODO UPATED BY ABUNAC
     /* display result */
     printf("Gateway ID: %.2x:%.2x:%.2x:ff:ff:%.2x:%.2x:%.2x\n",
            (unsigned char)ifr.ifr_hwaddr.sa_data[0],
