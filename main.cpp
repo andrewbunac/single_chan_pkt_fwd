@@ -596,7 +596,7 @@ int main () {
            (unsigned char)gatewayId[4],
            (unsigned char)gatewayId[5],
            (unsigned char)gatewayId[6],
-           (unsigned char)gatewayId[7],);
+           (unsigned char)gatewayId[7]);
 
     printf("Listening at SF%i on %.6lf Mhz.\n", sf,(double)freq/1000000);
     printf("------------------\n");
