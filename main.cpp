@@ -393,7 +393,7 @@ void receivepacket() {
     long int SNR;
     int rssicorr;
 
-    if(digitalRead(dio0) == 0)
+    if(digitalRead(dio0) == 1)
     {
         if(receivePkt(message)) {
             byte value = readRegister(REG_PKT_SNR_VALUE);
