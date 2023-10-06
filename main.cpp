@@ -66,9 +66,9 @@ enum sf_t { SF7=7, SF8, SF9, SF10, SF11, SF12 };
  *******************************************************************************/
 
 // SX1272 - Raspberry connections
-int ssPin = 8;
+int ssPin = 25;
 int dio0  = 4;
-int RST   = 22;
+int RST   = 17;
 
 // Set spreading factor (SF7 - SF12)
 sf_t sf = SF10;
@@ -243,7 +243,7 @@ boolean receivePkt(char *payload)
 
 void SetupLoRa()
 {
-    
+        
     digitalWrite(RST, HIGH);
     delay(100);
     digitalWrite(RST, LOW);
