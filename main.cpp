@@ -81,6 +81,7 @@ int RST   = 0;
 sf_t sf = SF10;
 
 // Set center frequency
+//               868100000
 uint32_t  freq = 433000000; // in Mhz! (868.1) 868100000
 
 // Set location
@@ -402,7 +403,9 @@ void receivepacket() {
 
     if(digitalRead(dio0) == 1)
     {
+        printf("Interrupted by RA-02");
         if(receivePkt(message)) {
+            
             byte value = readRegister(REG_PKT_SNR_VALUE);
             if( value & 0x80 ) // The SNR sign bit is 1
             {
