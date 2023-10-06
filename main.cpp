@@ -83,8 +83,8 @@ int   alt=0;
 
 /* Informal status fields */
 static char platform[24]    = "Single Channel Gateway";  /* platform definition */
-static char email[40]       = "";                        /* used for contact email */
-static char description[64] = "";                        /* used for free form description */
+static char email[40]       = "andrewbunac@gmail.com";                        /* used for contact email */
+static char description[64] = "Testing of RPI";                        /* used for free form description */
 
 // define servers
 // TODO: use host names and dns
@@ -243,7 +243,7 @@ boolean receivePkt(char *payload)
 
 void SetupLoRa()
 {
-        
+
     digitalWrite(RST, HIGH);
     delay(100);
     digitalWrite(RST, LOW);
